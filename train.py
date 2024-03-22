@@ -53,7 +53,7 @@ def compile_model(model):
     model.compile(
         loss=losses.BinaryCrossentropy(from_logits=True),
         optimizer='adam',
-        metrics=tf.metrics.BinaryAccuracy(threshold=0.0))
+        metrics=[tf.metrics.BinaryAccuracy(threshold=0.5)])
 
 
 def train_model(model, train_ds, val_ds, epochs):
@@ -175,4 +175,4 @@ export_model.compile(
 loss, accuracy = export_model.evaluate(raw_test_ds)
 print(accuracy)
 
-export_model.save('model')
+export_model.save('model.keras')

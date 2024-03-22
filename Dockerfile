@@ -6,13 +6,16 @@ RUN apt-get update && apt-get install -y \
     libboost-all-dev \
     libprotobuf-dev \
     protobuf-compiler \
-    clang
+    clang \
+    git \
+    python3 \
+    python3-pip
 
 RUN update-alternatives --install /usr/bin/cc cc /usr/bin/clang 100 && \
     update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++ 100
 
-RUN apt-get install -y \
-    git
+# Install numpy
+RUN python3 -m pip install numpy
 
 # Install Microsoft SEAL
 RUN cd / && \
@@ -22,10 +25,6 @@ RUN cd / && \
     make -j && \
     make install
 
-RUN apt-get install -y \
-    python3 \
-    python3-pip
-
 # Install EVA
 RUN cd / && \
     git clone https://github.com/microsoft/EVA.git && \
@@ -34,9 +33,6 @@ RUN cd / && \
     cmake . && \
     make -j && \
     python3 -m pip install -e python/
-
-# Install numpy
-RUN python3 -m pip install numpy
 
 # Setup app environment
 WORKDIR /app

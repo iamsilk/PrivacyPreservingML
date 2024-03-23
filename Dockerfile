@@ -49,7 +49,10 @@ COPY src/ /app
 # CMD ["python3", "/app/ckks_example.py"]
 
 # Predict
-# CMD ["python3", "/app/main.py", "predict", "--model", "/app/model/model.h5", "--vocab", "/app/model/vocab.json", "--text-file", "/app/dataset/test/spam/spam_10.txt"]
+# CMD ["python3", "/app/main.py", "predict", "--model", "/app/model/model.h5", "--vocab", "/app/model/vocab.json", "--text-file", "/app/dataset/test/spam/spam_12.txt"]
 
 # Privacy Predict
-CMD ["python3", "/app/main.py", "privacy-predict", "--model", "/app/model/model.h5", "--vocab", "/app/model/vocab.json", "--text-file", "/app/dataset/test/spam/spam_10.txt"]
+# CMD ["python3", "/app/main.py", "privacy-predict", "--model", "/app/model/model.h5", "--vocab", "/app/model/vocab.json", "--text-file", "/app/dataset/test/spam/spam_12.txt"]
+
+# Benchmark Predict
+CMD ["python3", "/app/main.py", "benchmark-predict", "--model", "/app/model/model.h5", "--vocab", "/app/model/vocab.json", "--test-dataset", "/app/dataset/test"]

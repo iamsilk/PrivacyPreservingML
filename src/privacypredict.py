@@ -9,6 +9,9 @@ from eva.ckks import CKKSCompiler
 from eva.seal import *
 
 
+VECTOR_SIZE = 4096
+
+
 class FakeServer:
     def __init__(self, model, vocabulary):
         self.model = model
@@ -16,7 +19,7 @@ class FakeServer:
     
         dense_layer = model.layers[4]
         
-        dense = EvaProgram('Dense', vec_size=1)
+        dense = EvaProgram('Dense', vec_size=VECTOR_SIZE)
         with dense:
             x = np.array([Input(f"x_{i}") for i in range(EMBEDDING_DIM)])
             out = np.matmul(x, dense_layer.kernel)
@@ -41,9 +44,11 @@ class FakeServer:
     
     def predict(self, encrypted_inputs):
         # Predict the text
-        encrypted_output = self.public_ctx.execute(self.compiled_dense, encrypted_inputs)
-        
-        return encrypted_output
+        encrypted_outputs = []
+        for encrypted_input in encrypted_inputs:
+            encrypted_output = self.public_ctx.execute(self.compiled_dense, encrypted_input)
+            encrypted_outputs.append(encrypted_output)
+        return encrypted_outputs
     
 
 class FakeClient:
@@ -56,52 +61,83 @@ class FakeClient:
         # Generate keys
         self.public_ctx, self.secret_ctx = generate_keys(self.params)
         
+        # Create text vectorization layer
+        self.vectorize_layer = make_vectorize_layer(self.vocabulary)
+
         # Prepare layers
-        self.layers = [
-            make_vectorize_layer(self.vocabulary),
-            self.layer_expand_dims,
-            self.layer_embedding,
+        embedding_layer = layers.Embedding(MAX_FEATURES, EMBEDDING_DIM)
+        embedding_layer.build()
+        embedding_layer.load_own_variables({'0': self.embeddings})
+
+        self.preparation_model = tf.keras.Sequential([
+            embedding_layer,
             layers.GlobalAveragePooling1D()
-        ]
+        ])
+        
+        self.preparation_model.compile()
     
     def get_public_params(self):
         return (self.public_ctx, )
     
-    def layer_expand_dims(self, inputs):
-        return tf.expand_dims(inputs, 0)
-    
     def layer_embedding(self, inputs):
         return np.take(self.embeddings, inputs, axis=0)
     
-    def get_encrypted_inputs(self, text):        
-        # Preparation layers
-        inputs = text
+    def vectorize_text(self, text):
+        return self.vectorize_layer(text)
+    
+    def get_encrypted_inputs(self, text):
+        # Run the preparation model
+        inputs = self.preparation_model.predict(text)
         
-        for layer in self.layers:
-            inputs = layer(inputs)
+        real_input_length = len(inputs)
+        if real_input_length < VECTOR_SIZE:
+            padded_input_length = VECTOR_SIZE
+        else:
+            padded_input_length = 2**(len(inputs) - 1).bit_length()
+        
+        # Format the input for usage with the CKKS scheme
+        formatted_inputs = { f"x_{i}": [] for i in range(EMBEDDING_DIM)}
+        for i in range(real_input_length):
+            for j in range(EMBEDDING_DIM):
+                formatted_inputs[f"x_{j}"].append(inputs[i][j])
+        
+        # Pad the inputs
+        for j in range(EMBEDDING_DIM):
+            formatted_inputs[f"x_{j}"].extend([0] * (padded_input_length - real_input_length))
+        
+        # Split the inputs into batches
+        formatted_input_batches = []
+        for i in range(0, padded_input_length, VECTOR_SIZE):
+            formatted_input_batch = { f"x_{j}": formatted_inputs[f"x_{j}"][i:i+VECTOR_SIZE] for j in range(EMBEDDING_DIM)}
+            formatted_input_batches.append(formatted_input_batch)
         
         # Encrypt the inputs
-        inputs = { f"x_{i}": [inputs[0][i].numpy().item()] for i in range(EMBEDDING_DIM) }
-        encrypted_inputs = self.public_ctx.encrypt(inputs, self.signature)
+        encrypted_inputs = []
+        for formatted_input_batch in formatted_input_batches:
+            encrypted_input_batch = self.public_ctx.encrypt(formatted_input_batch, self.signature)
+            encrypted_inputs.append(encrypted_input_batch)
         
-        return encrypted_inputs
+        return encrypted_inputs, len(inputs)
     
-    def get_prediction(self, encrypted_output):
+    def get_prediction(self, encrypted_outputs, input_length):
+        prediction = []
+        
         # Decrypt the outputs
-        output = self.secret_ctx.decrypt(encrypted_output, self.signature)
-        prediction = output['y'][0]
+        for encrypted_output in encrypted_outputs:
+            output = self.secret_ctx.decrypt(encrypted_output, self.signature)
+            prediction.extend(output['y'])
         
         # Pass the prediction through an activation function
         activation = tf.keras.activations.sigmoid
         prediction = activation(prediction)
         
-        # Convert the prediction to a scalar
-        prediction = prediction.numpy().item()
+        # Truncate the prediction to the real input length
+        prediction = prediction[:input_length]
         
         return prediction
 
 
-def predict_text(model, vocabulary, text):    
+def predict_text(model, vocabulary, text):
     # Server side initialization
     fake_server = FakeServer(model, vocabulary)
     
@@ -112,12 +148,12 @@ def predict_text(model, vocabulary, text):
     fake_server.set_client_params(*fake_client.get_public_params())
     
     # Encrypt the inputs
-    encrypted_inputs = fake_client.get_encrypted_inputs(text)
+    encrypted_inputs, real_input_length = fake_client.get_encrypted_inputs(text)
     
     # Run the prediction on encrypted inputs
-    encrypted_output = fake_server.predict(encrypted_inputs)
+    encrypted_outputs = fake_server.predict(encrypted_inputs)
     
     # Decrypt the outputs
-    prediction = fake_client.get_prediction(encrypted_output)
+    prediction = fake_client.get_prediction(encrypted_outputs, real_input_length)
     
     return prediction

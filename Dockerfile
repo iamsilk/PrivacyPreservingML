@@ -36,7 +36,7 @@ RUN cd / && \
 
 # Setup app environment
 WORKDIR /app
-COPY ckks_example.py .
+COPY src/ckks_example.py .
 
 # Run the app
 CMD ["python3", "ckks_example.py"]

@@ -22,6 +22,7 @@ encInputs = public_ctx.encrypt(inputs, signature)
 encOutputs = public_ctx.execute(compiled_poly, encInputs)
 
 outputs = secret_ctx.decrypt(encOutputs, signature)
+print(outputs)
 
 from eva.metric import valuation_mse
 reference = evaluate(compiled_poly, inputs)

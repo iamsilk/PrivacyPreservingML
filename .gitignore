@@ -1,5 +1,7 @@
 # Custom
 dataset/
+model/model.h5
+model/vocab.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

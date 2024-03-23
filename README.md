@@ -2,9 +2,13 @@
 
 ## Getting Started
 
+### Dataset
+
 To start, extract the `dataset.zip` file.
 
-After which, set up a virtual environment and install the Python requirements.
+### Training and Predicting
+
+After extracting the dataset, set up a virtual environment and install the Python requirements.
 
 Create the Python virtual environment:
 ```sh
@@ -31,5 +35,14 @@ pip install -r requirements.txt
 Then you can run the training script.
 
 ```sh
-python train.py
+python ./src/main.py train --train-dataset ./dataset/train --test-dataset ./dataset/test --epochs 30
+
+python ./src/main.py train --train-dataset ./dataset/train --test-dataset ./dataset/test --epochs 30 --model ./model/model.h5 --vocab ./model/vocab.json
+```
+
+And you can run the predict script:
+
+```sh
+python ./src/main.py predict --model ./model/model.h5 --vocab ./model/vocab.json --text-file ./dataset/test/spam/spam_10.txt
+python ./src/main.py predict --model ./model/model.h5 --vocab ./model/vocab.json --text-file ./dataset/test/spam/ham_10.txt
 ```

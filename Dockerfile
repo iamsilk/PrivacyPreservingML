@@ -34,9 +34,22 @@ RUN cd / && \
     make -j && \
     python3 -m pip install -e python/
 
+# Install tensorflow
+RUN python3 -m pip install tensorflow
+
 # Setup app environment
 WORKDIR /app
-COPY src/ckks_example.py .
+COPY dataset/test/ /app/dataset/test
+COPY model/ /app/model
+COPY src/ /app
 
 # Run the app
-CMD ["python3", "ckks_example.py"]
+
+# CKKS Example
+# CMD ["python3", "/app/ckks_example.py"]
+
+# Predict
+# CMD ["python3", "/app/main.py", "predict", "--model", "/app/model/model.h5", "--vocab", "/app/model/vocab.json", "--text-file", "/app/dataset/test/spam/spam_10.txt"]
+
+# Privacy Predict
+CMD ["python3", "/app/main.py", "privacy-predict", "--model", "/app/model/model.h5", "--vocab", "/app/model/vocab.json", "--text-file", "/app/dataset/test/spam/spam_10.txt"]

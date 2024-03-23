@@ -2,9 +2,7 @@ import tensorflow as tf
 import string
 from keras import layers
 import re
-
-MAX_FEATURES = 10000
-SEQUENCE_LENGTH = 250
+from common import *
 
 def standardize_text(input_text):
     # convert to lower

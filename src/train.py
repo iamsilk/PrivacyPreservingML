@@ -2,11 +2,8 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 from keras import layers
 from keras import losses
-from text import standardize_text, make_vectorize_layer, MAX_FEATURES
-
-BATCH_SIZE = 32
-SEED = 42
-EMBEDDING_DIM = 16
+from text import standardize_text, make_vectorize_layer
+from common import *
 
 
 def train_model(train_dataset_dir, epochs):

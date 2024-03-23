@@ -65,6 +65,31 @@ def main():
         type=str,
         help="The file containing the text to predict"
     )
+    
+    privacy_predict_parser = subparsers.add_parser("privacy-predict", help="Predict using the model with CKKS encryption")
+    privacy_predict_parser.add_argument(
+        "--model",
+        type=str,
+        required=True,
+        help="The path to the model",
+    )
+    privacy_predict_parser.add_argument(
+        "--vocab",
+        type=str,
+        required=True,
+        help="The path to the vocabulary (JSON format)",
+    )
+    privacy_predict_text_group = privacy_predict_parser.add_mutually_exclusive_group(required=True)
+    privacy_predict_text_group.add_argument(
+        "--text",
+        type=str,
+        help="The text to predict",
+    )
+    privacy_predict_text_group.add_argument(
+        "--text-file",
+        type=str,
+        help="The file containing the text to predict"
+    )
 
     args = parser.parse_args()
 
@@ -90,9 +115,12 @@ def main():
             with open(args.vocab, "w") as f:
                 json.dump(vocab, f)
     
-    if args.command == "predict":
+    if args.command == "predict" or args.command == "privacy-predict":
         import tensorflow as tf
-        from predict import predict_text
+        if args.command == "predict":
+            from predict import predict_text
+        else:
+            from privacypredict import predict_text
         
         # Get the text
         if args.text:

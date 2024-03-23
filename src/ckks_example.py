@@ -1,5 +1,5 @@
 from eva import *
-poly = EvaProgram('Polynomial', vec_size=1024)
+poly = EvaProgram('Polynomial', vec_size=2)
 with poly:
     x = Input('x')
     Output('y', 3*x**2 + 5*x - 2)
@@ -17,13 +17,17 @@ from eva.seal import *
 public_ctx, secret_ctx = generate_keys(params)
 
 inputs = { 'x': [i for i in range(compiled_poly.vec_size)] }
+print('Inputs:', inputs)
+
 encInputs = public_ctx.encrypt(inputs, signature)
+print('Encrypted inputs:', encInputs)
 
 encOutputs = public_ctx.execute(compiled_poly, encInputs)
+print('Encrypted outputs:', encOutputs)
 
 outputs = secret_ctx.decrypt(encOutputs, signature)
-print(outputs)
+print('Decrypted outputs:', outputs)
 
-from eva.metric import valuation_mse
-reference = evaluate(compiled_poly, inputs)
-print('MSE', valuation_mse(outputs, reference))
+#from eva.metric import valuation_mse
+#reference = evaluate(compiled_poly, inputs)
+#print('MSE', valuation_mse(outputs, reference))

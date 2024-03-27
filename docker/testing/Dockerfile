@@ -39,8 +39,6 @@ RUN python3 -m pip install tensorflow
 
 # Setup app environment
 WORKDIR /app
-COPY dataset/test/ /app/dataset/test
-COPY model/ /app/model
 COPY privacypreservingml/ /app/privacypreservingml
 
 # Run the app

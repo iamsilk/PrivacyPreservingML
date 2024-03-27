@@ -49,7 +49,7 @@ def train_model(train_dataset_dir, epochs):
     # Train the model
     history = model.fit(train_ds, validation_data=val_ds, epochs=epochs)
     
-    return model, vocabulary
+    return model, vocabulary, history
 
 
 def evaluate_model(model, vocabulary, test_dataset_dir):

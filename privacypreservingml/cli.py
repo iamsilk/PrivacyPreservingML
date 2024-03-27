@@ -40,6 +40,13 @@ def main():
         required=False,
         help="The path to save the vocabulary (JSON format)",
     )
+    train_parser.add_argument(
+        "--plot",
+        nargs="?",
+        default=False,
+        const=True,
+        required=False
+    )
     
     predict_parser = subparsers.add_parser("predict", help="Predict using the model")
     predict_parser.add_argument(
@@ -121,7 +128,7 @@ def main():
         # Train the model
         from training.train import train_model, evaluate_model
 
-        model, vocab = train_model(args.train_dataset, args.epochs)
+        model, vocab, history = train_model(args.train_dataset, args.epochs)
         loss, accuracy = evaluate_model(model, vocab, args.test_dataset)
 
         print(f"Validation loss: {loss}, Validation accuracy: {accuracy}")
@@ -134,6 +141,31 @@ def main():
             print(f"Saving vocabulary to {args.vocab}")
             with open(args.vocab, "w") as f:
                 json.dump(vocab, f)
+        
+        if args.plot:
+            import matplotlib.pyplot as plt
+
+            print(history)
+            print(history.history.keys())
+            acc = history.history['binary_accuracy']
+            val_acc = history.history['val_binary_accuracy']
+            loss = history.history['loss']
+            val_loss = history.history['val_loss']
+            epochs = range(1, len(acc) + 1)
+
+            plt.plot(epochs, acc, 'bo', label='Training acc')
+            plt.plot(epochs, val_acc, 'b', label='Validation acc')
+            plt.title('Training and validation accuracy')
+            plt.legend()
+
+            plt.figure()
+
+            #plt.plot(epochs, loss, 'bo', label='Training loss')
+            #plt.plot(epochs, val_loss, 'b', label='Validation loss')
+            #plt.title('Training and validation loss')
+            #plt.legend()
+
+            plt.show()
     
     if args.command == "predict" or args.command == "privacy-predict":
         import tensorflow as tf

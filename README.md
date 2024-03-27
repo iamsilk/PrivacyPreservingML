@@ -47,7 +47,7 @@ Then you can run the training script.
 ```sh
 python ./privacypreservingml/cli.py train --train-dataset ./dataset/train --test-dataset ./dataset/test --epochs 30
 
-python ./privacypreservingml/testing/main.py --train-dataset ./dataset/train --test-dataset ./dataset/test --epochs 30 --model ./model/model.h5 --vocab ./model/vocab.json
+python ./privacypreservingml/cli.py train --train-dataset ./dataset/train --test-dataset ./dataset/test --epochs 30 --model ./model/model.h5 --vocab ./model/vocab.json
 ```
 
 And you can run the predict script:

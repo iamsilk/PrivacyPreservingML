@@ -64,4 +64,3 @@ You can run tests in a Docker container using this command:
 ```sh
 docker compose -f .\docker\testing\docker-compose.yaml up --build
 ```
-

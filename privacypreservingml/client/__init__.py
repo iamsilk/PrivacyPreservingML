@@ -1,5 +1,12 @@
-import flask
+from flask import Flask
+
 
 def create_app():
-    app = flask.Flask(__name__)
+    # Create the Flask app
+    app = Flask(__name__)
+    
+    # Register the blueprint
+    from client.routes import bp
+    app.register_blueprint(bp)
+    
     return app

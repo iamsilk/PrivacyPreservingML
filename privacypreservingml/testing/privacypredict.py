@@ -9,9 +9,6 @@ from eva.ckks import CKKSCompiler
 from eva.seal import *
 
 
-VECTOR_SIZE = 4096
-
-
 class FakeServer:
     def __init__(self, model, vocabulary):
         self.model = model

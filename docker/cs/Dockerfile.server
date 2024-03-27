@@ -34,8 +34,8 @@ RUN cd / && \
     make -j && \
     python3 -m pip install -e python/
 
-# Install tensorflow
-RUN python3 -m pip install tensorflow
+# Install tensorflow, flask
+RUN python3 -m pip install tensorflow flask
 
 # Copy the app
 COPY privacypreservingml/shared/ /app/privacypreservingml/shared
@@ -45,4 +45,4 @@ COPY privacypreservingml/server/ /app/privacypreservingml/server
 WORKDIR /app
 
 # Run the app
-CMD ["python3", "/app/privacypreservingml/cli.py", "-h"]
+CMD ["python3", "-m", "flask", "--app=/app/privacypreservingml/server/", "run", "--host=0.0.0.0", "--without-threads"]

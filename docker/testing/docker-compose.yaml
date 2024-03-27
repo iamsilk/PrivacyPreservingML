@@ -11,7 +11,7 @@ services:
     # Uncomment the line you want to test
 
     # Predict
-    command: ["python3", "/app/privacypreservingml/cli.py", "predict", "--model", "/app/model/model.h5", "--vocab", "/app/model/vocab.json", "--text-file", "/app/dataset/test/spam/spam_12.txt"]
+    # command: ["python3", "/app/privacypreservingml/cli.py", "predict", "--model", "/app/model/model.h5", "--vocab", "/app/model/vocab.json", "--text-file", "/app/dataset/test/spam/spam_12.txt"]
     
     # Privacy Predict
     # command: ["python3", "/app/privacypreservingml/cli.py", "privacy-predict", "--model", "/app/model/model.h5", "--vocab", "/app/model/vocab.json", "--text-file", "/app/dataset/test/spam/spam_12.txt"]

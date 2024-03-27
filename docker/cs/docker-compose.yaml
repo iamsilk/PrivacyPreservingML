@@ -1,0 +1,12 @@
+services:
+  server:
+    build:
+      context: ../../
+      dockerfile: docker/server/Dockerfile
+
+  client:
+    build:
+      context: ../../
+      dockerfile: docker/client/Dockerfile
+    ports:
+      - 5000:5000

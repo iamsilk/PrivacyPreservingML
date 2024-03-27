@@ -41,18 +41,8 @@ RUN python3 -m pip install tensorflow
 WORKDIR /app
 COPY dataset/test/ /app/dataset/test
 COPY model/ /app/model
-COPY src/ /app
+COPY privacypreservingml/ /app/privacypreservingml
 
 # Run the app
 
-# CKKS Example
-# CMD ["python3", "/app/ckks_example.py"]
-
-# Predict
-# CMD ["python3", "/app/main.py", "predict", "--model", "/app/model/model.h5", "--vocab", "/app/model/vocab.json", "--text-file", "/app/dataset/test/spam/spam_12.txt"]
-
-# Privacy Predict
-# CMD ["python3", "/app/main.py", "privacy-predict", "--model", "/app/model/model.h5", "--vocab", "/app/model/vocab.json", "--text-file", "/app/dataset/test/spam/spam_12.txt"]
-
-# Benchmark Predict
-CMD ["python3", "/app/main.py", "benchmark-predict", "--model", "/app/model/model.h5", "--vocab", "/app/model/vocab.json", "--test-dataset", "/app/dataset/test"]
+CMD ["python3", "/app/privacypreservingml/cli.py", "-h"]

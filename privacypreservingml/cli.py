@@ -119,7 +119,7 @@ def main():
 
     if args.command == "train":
         # Train the model
-        from train import train_model, evaluate_model
+        from training.train import train_model, evaluate_model
 
         model, vocab = train_model(args.train_dataset, args.epochs)
         loss, accuracy = evaluate_model(model, vocab, args.test_dataset)
@@ -137,11 +137,11 @@ def main():
     
     if args.command == "predict" or args.command == "privacy-predict":
         import tensorflow as tf
-        from text import make_vectorize_layer
+        from shared.text import make_vectorize_layer
         if args.command == "predict":
-            from predict import predict_text
+            from testing.predict import predict_text
         else:
-            from privacypredict import predict_text
+            from testing.privacypredict import predict_text
         
         # Get the text
         if args.text:
@@ -171,7 +171,7 @@ def main():
     
     if args.command == "benchmark-predict":
         import tensorflow as tf
-        from benchmarkpredict import benchmark
+        from testing.benchmarkpredict import benchmark
         
         # Load the model
         model = tf.keras.models.load_model(args.model)

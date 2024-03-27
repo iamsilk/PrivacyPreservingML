@@ -1,9 +1,8 @@
-import matplotlib.pyplot as plt
 import tensorflow as tf
 from keras import layers
 from keras import losses
-from text import standardize_text, make_vectorize_layer
-from common import *
+from shared.text import standardize_text, make_vectorize_layer
+from shared.common import *
 
 
 def train_model(train_dataset_dir, epochs):

@@ -1,7 +1,7 @@
 import tensorflow as tf
 from keras import layers
-from text import standardize_text, make_vectorize_layer
-from common import *
+from shared.text import standardize_text, make_vectorize_layer
+from shared.common import *
 import numpy as np
 
 from eva import EvaProgram, Input, Output

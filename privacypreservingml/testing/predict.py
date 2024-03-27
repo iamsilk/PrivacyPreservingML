@@ -1,5 +1,5 @@
 import tensorflow as tf
-from text import make_vectorize_layer
+from shared.text import make_vectorize_layer
 
 def predict_text(model, vocabulary, text):
     # Predict the text

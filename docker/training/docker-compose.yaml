@@ -1,0 +1,9 @@
+services:
+  ppml_training:
+    build:
+      context: ../../
+      dockerfile: docker/training/Dockerfile
+    volumes:
+      - ../../dataset/train:/app/dataset/train:ro
+      - ../../dataset/test:/app/dataset/test:ro
+      - ../../model/:/app/model/

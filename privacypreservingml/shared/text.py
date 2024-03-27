@@ -2,7 +2,7 @@ import tensorflow as tf
 import string
 from keras import layers
 import re
-from common import *
+from shared.common import *
 
 def standardize_text(input_text):
     # convert to lower

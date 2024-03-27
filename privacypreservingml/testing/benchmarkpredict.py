@@ -1,7 +1,7 @@
 import tensorflow as tf
-from text import make_vectorize_layer
-from privacypredict import FakeServer, FakeClient
-from common import *
+from testing.privacypredict import FakeServer, FakeClient
+from shared.text import make_vectorize_layer
+from shared.common import *
 import time
 import numpy as np
 

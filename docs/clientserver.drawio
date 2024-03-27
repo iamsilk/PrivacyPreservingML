@@ -1,0 +1,61 @@
+<mxfile host="Electron" modified="2024-03-27T16:48:00.097Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.1.2 Chrome/106.0.5249.199 Electron/21.4.3 Safari/537.36" etag="UOHdY8D_aOQn1CkQ4CRZ" version="21.1.2" type="device">
+  <diagram name="Page-1" id="CBmu8DVJwG0TwqZU8weK">
+    <mxGraphModel dx="683" dy="398" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="p7Sxy3V8J3qfVhg_NuAx-1" value="User" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="120" y="245.5" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="p7Sxy3V8J3qfVhg_NuAx-3" value="PPML Client&lt;br&gt;&lt;br&gt;" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="215.5" width="113.33" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="p7Sxy3V8J3qfVhg_NuAx-4" value="" style="html=1;verticalLabelPosition=bottom;align=center;labelBackgroundColor=#ffffff;verticalAlign=top;strokeWidth=2;strokeColor=#0080F0;shadow=0;dashed=0;shape=mxgraph.ios7.icons.mail;" vertex="1" parent="1">
+          <mxGeometry x="399.5" y="229" width="30" height="16.5" as="geometry" />
+        </mxCell>
+        <mxCell id="p7Sxy3V8J3qfVhg_NuAx-6" value="" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#DF8C42;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;shape=mxgraph.veeam2.encrypted;" vertex="1" parent="1">
+          <mxGeometry x="415" y="238.25" width="21" height="21" as="geometry" />
+        </mxCell>
+        <mxCell id="p7Sxy3V8J3qfVhg_NuAx-10" value="" style="html=1;verticalLabelPosition=bottom;align=center;labelBackgroundColor=#ffffff;verticalAlign=top;strokeWidth=2;strokeColor=#0080F0;shadow=0;dashed=0;shape=mxgraph.ios7.icons.document;" vertex="1" parent="1">
+          <mxGeometry x="404" y="284.5" width="21" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p7Sxy3V8J3qfVhg_NuAx-11" value="" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#DF8C42;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;shape=mxgraph.veeam2.encrypted;" vertex="1" parent="1">
+          <mxGeometry x="415" y="305.5" width="21" height="21" as="geometry" />
+        </mxCell>
+        <mxCell id="p7Sxy3V8J3qfVhg_NuAx-12" value="" style="html=1;verticalLabelPosition=bottom;align=center;labelBackgroundColor=#ffffff;verticalAlign=top;strokeWidth=2;strokeColor=#0080F0;shadow=0;dashed=0;shape=mxgraph.ios7.icons.document;" vertex="1" parent="1">
+          <mxGeometry x="184.5" y="284.5" width="21" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p7Sxy3V8J3qfVhg_NuAx-19" value="PPML Server&lt;br&gt;&lt;br&gt;" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="215.5" width="113.33" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="p7Sxy3V8J3qfVhg_NuAx-21" value="" style="html=1;verticalLabelPosition=bottom;align=center;labelBackgroundColor=#ffffff;verticalAlign=top;strokeWidth=2;strokeColor=#0080F0;shadow=0;dashed=0;shape=mxgraph.ios7.icons.mail;" vertex="1" parent="1">
+          <mxGeometry x="180" y="238.25" width="30" height="16.5" as="geometry" />
+        </mxCell>
+        <mxCell id="p7Sxy3V8J3qfVhg_NuAx-24" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="160" y="260" as="sourcePoint" />
+            <mxPoint x="230" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p7Sxy3V8J3qfVhg_NuAx-26" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="360" y="260" as="sourcePoint" />
+            <mxPoint x="470" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p7Sxy3V8J3qfVhg_NuAx-27" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="230" y="280" as="sourcePoint" />
+            <mxPoint x="160" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p7Sxy3V8J3qfVhg_NuAx-28" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="470" y="280" as="sourcePoint" />
+            <mxPoint x="360" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
